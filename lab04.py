@@ -8,7 +8,7 @@ def summation(n, term):
     >>> summation(5, lambda x: x * x * x) # 1^3 + 2^3 + 3^3 + 4^3 + 5^3
     225
     >>> summation(9, lambda x: x + 1) # 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10
-    54
+    54  
     >>> summation(5, lambda x: 2**x) # 2^1 + 2^2 + 2^3 + 2^4 + 2^5
     62
     >>> # Do not use while/for loops!
@@ -20,7 +20,11 @@ def summation(n, term):
     """
     assert n >= 1
     "*** YOUR CODE HERE ***"
-
+    
+    if n>1:
+        return term(n)+summation(n-1, term)
+    else:
+        return term(n)
 
 def paths(m, n):
     """Return the number of paths from one corner of an
@@ -36,6 +40,16 @@ def paths(m, n):
     1
     """
     "*** YOUR CODE HERE ***"
+    dp = [[0] * (n+1) for _ in range(m+1)]
+    dp[1][1]=1
+    
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if i == 1 or j ==  1:
+                dp[i][i] = 1
+            else:
+                dp[i][i] = dp[i-1][j] + dp[i][j-1]
+    return dp[m][n]
 
 
 def pascal(row, column):
